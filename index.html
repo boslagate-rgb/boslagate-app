@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>تحميل تطبيق بوابة بوصلة - Bosla Gate</title>
+  <title>تحميل تطبيق بوابة بوصلة</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,19 +14,16 @@
   
   <style>
     body { font-family: 'Cairo', sans-serif; text-align: center; background-color: #f4f7f6; margin: 0; padding: 30px 15px; }
-    .box { background: #fff; padding: 30px 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 380px; margin: auto; }
-    .logo-img { width: 85px; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); background-color: #ffffff; }
-    h2 { color: #001f4d; font-weight: 700; margin-bottom: 8px; font-size: 22px;}
-    p { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 20px; font-weight: 400;}
-    .btn { display: block; margin: 12px auto; padding: 12px; color: white; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 16px; width: 85%; box-sizing: border-box; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; transition: background 0.2s; }
+    .box { background: #fff; padding: 35px 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 380px; margin: auto; }
+    .logo-img { width: 110px; margin-bottom: 15px; }
+    h2 { color: #001f4d; font-weight: 700; margin-bottom: 8px; font-size: 24px;}
+    p { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 25px;}
+    .btn { display: block; margin: 12px auto; padding: 14px; color: white; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 17px; width: 90%; box-sizing: border-box; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; transition: background 0.2s; background: #001f4d; }
+    .btn:hover { background: #000c20; }
+    .link-alt { display: block; margin-top: 20px; color: #777; text-decoration: underline; font-size: 15px;}
     
-    .install-pwa-btn { background: #001f4d; }
-    .install-pwa-btn:hover { background: #000c20; }
-    
-    .link-alt { display: block; margin-top: 18px; color: #666; text-decoration: underline; font-size: 14px;}
-    
-    #iosDialog { position: fixed; bottom: 10px; left: 10px; right: 10px; background: rgba(0,0,0,0.85); color: #fff; padding: 15px; border-radius: 10px; text-align: center; font-size: 14px; display: none; z-index: 1000;}
-    #iosDialog b { color: #ffeb3b; }
+    /* صندوق التعليمات لمتصفحات Brave والآيفون */
+    #instructionBox { background: #e9f2fc; color: #001f4d; padding: 15px; border-radius: 8px; font-size: 15px; margin-top: 15px; border: 1px solid #cce0f5; display: none; line-height: 1.6;}
   </style>
 </head>
 <body>
@@ -34,16 +31,13 @@
   <div class="box">
     <img src="icon-192.png" class="logo-img" alt="لوجو بوابة بوصلة">
     <h2>تطبيق بوابة بوصلة</h2>
-    <p>تابع أحدث فرص الهجرة والسفر واحصل على استشاراتنا الموثوقة فوراً. حمل التطبيق الآن مجاناً!</p>
+    <p>للحصول على أسرع تجربة ومتابعة أحدث فرص الهجرة، حمل التطبيق الآن على هاتفك مجاناً.</p>
     
-    <button id="installPwaBtn" class="btn install-pwa-btn">⬆️ تثبيت التطبيق</button>
+    <button id="installBtn" class="btn">⬇️ تثبيت التطبيق</button>
+    
+    <div id="instructionBox"></div>
 
     <a href="https://boslagate.com" class="link-alt">تصفح الموقع بدلاً من ذلك</a>
-  </div>
-
-  <div id="iosDialog">
-    <img src="icon-192.png" width="40" style="border-radius: 8px; margin-bottom: 5px; background-color: #ffffff;"> <br>
-    <b>للآيفون:</b> اضغط على زر المشاركة (Share) ⇪، ثم اختر <br> <b>إضافة للشاشة الرئيسية</b> <br> (Add to Home Screen).
   </div>
 
   <script>
@@ -52,11 +46,14 @@
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
     if (isStandalone) {
-      if (navigator.onLine) { window.location.replace("https://boslagate.com"); }
+      if (navigator.onLine) { 
+        // التعديل بناء على طلبك وطلب شات جي بي تي
+        window.location.href = "https://boslagate.com"; 
+      }
     } else {
-      let deferredPrompt;
-      const installPwaBtn = document.getElementById('installPwaBtn');
-      const iosDialog = document.getElementById('iosDialog');
+      let deferredPrompt = null;
+      const installBtn = document.getElementById('installBtn');
+      const instructionBox = document.getElementById('instructionBox');
       
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
@@ -65,15 +62,21 @@
         deferredPrompt = e;
       });
 
-      installPwaBtn.addEventListener('click', () => {
+      installBtn.addEventListener('click', () => {
         if (deferredPrompt) {
+          // المتصفحات السالكة (زي كروم أندرويد)
           deferredPrompt.prompt();
           deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
         } else if (isIOS) {
-          iosDialog.style.display = 'block';
-          setTimeout(() => { iosDialog.style.display = 'none'; }, 6000);
+          // تفصيل للآيفون
+          installBtn.innerText = "طريقة التثبيت للآيفون 🍏";
+          instructionBox.innerHTML = "اضغط على زر المشاركة (Share) ⇪ أسفل الشاشة، ثم اختر <br> <b>إضافة للشاشة الرئيسية</b> <br> (Add to Home Screen).";
+          instructionBox.style.display = 'block';
         } else {
-          alert('اضغط على الثلاث نقاط (⋮) أعلى المتصفح، ثم اختر "إضافة إلى الشاشة الرئيسية" أو "تثبيت التطبيق".');
+          // المتصفحات المعاندة (زي Brave)
+          installBtn.innerText = "طريقة التثبيت لمتصفحك 🛡️";
+          instructionBox.innerHTML = "يبدو أن متصفحك يمنع التثبيت التلقائي.<br>اضغط على <b>الثلاث نقاط (⋮)</b> أعلى أو أسفل المتصفح، ثم ابحث عن <br> <b>إضافة إلى الشاشة الرئيسية</b> أو <b>تثبيت التطبيق</b>.";
+          instructionBox.style.display = 'block';
         }
       });
     }
