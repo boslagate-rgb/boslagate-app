@@ -3,120 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>بوابة بوصلة - Bosla Gate</title>
+  <title>تحميل تطبيق بوابة بوصلة - Bosla Gate</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0056b3">
+  <meta name="theme-color" content="#ffffff">
   
   <style>
-    body { 
-      font-family: 'Cairo', sans-serif; /* تفعيل فونت كايرو */
-      text-align: center; 
-      background-color: #f0f4f8; 
-      margin: 0; 
-      padding: 40px 15px; 
-    }
-    .box { 
-      background: #fff; 
-      padding: 35px 25px; 
-      border-radius: 15px; 
-      box-shadow: 0 10px 25px rgba(0,86,179,0.1); 
-      max-width: 400px; 
-      margin: auto; 
-      display: none; 
-    }
-    .logo-img {
-      width: 90px;
-      border-radius: 22px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    h2 { color: #0056b3; font-weight: 700; margin-bottom: 10px; font-size: 24px;}
-    p { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 25px; font-weight: 400;}
-    .btn { 
-      display: block; 
-      margin: 15px auto; 
-      padding: 14px 25px; 
-      color: white; 
-      text-decoration: none; 
-      border-radius: 8px; 
-      font-weight: 700; 
-      font-size: 17px; 
-      width: 90%; 
-      box-sizing: border-box; 
-      border: none; 
-      cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      transition: all 0.3s ease;
-    }
-    .install-btn { background: #0056b3; }
-    .install-btn:hover { background: #004494; }
-    .whatsapp-btn { background: #25D366; }
-    .link-alt { 
-      display: block; 
-      margin-top: 20px; 
-      color: #777; 
-      text-decoration: underline; 
-      font-size: 15px;
-    }
-    #installHint {
-      background: #e9f2fc;
-      color: #0056b3;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      margin-top: 15px;
-      display: none;
-      border: 1px solid #cce0f5;
-    }
+    body { font-family: 'Cairo', sans-serif; text-align: center; background-color: #f4f7f6; margin: 0; padding: 30px 15px; }
+    .box { background: #fff; padding: 30px 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 380px; margin: auto; }
+    .logo-img { width: 85px; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); background-color: #ffffff; }
+    h2 { color: #001f4d; font-weight: 700; margin-bottom: 8px; font-size: 22px;}
+    p { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 20px; font-weight: 400;}
+    .btn { display: block; margin: 12px auto; padding: 12px; color: white; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 16px; width: 85%; box-sizing: border-box; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; transition: background 0.2s; }
+    
+    .install-pwa-btn { background: #001f4d; }
+    .install-pwa-btn:hover { background: #000c20; }
+    
+    .link-alt { display: block; margin-top: 18px; color: #666; text-decoration: underline; font-size: 14px;}
+    
+    #iosDialog { position: fixed; bottom: 10px; left: 10px; right: 10px; background: rgba(0,0,0,0.85); color: #fff; padding: 15px; border-radius: 10px; text-align: center; font-size: 14px; display: none; z-index: 1000;}
+    #iosDialog b { color: #ffeb3b; }
   </style>
 </head>
 <body>
 
-  <div id="installScreen" class="box">
+  <div class="box">
     <img src="icon-192.png" class="logo-img" alt="لوجو بوابة بوصلة">
     <h2>تطبيق بوابة بوصلة</h2>
-    <p>للحصول على أسرع تجربة ومتابعة أحدث فرص الهجرة، حمل التطبيق الآن على هاتفك مجاناً.</p>
+    <p>تابع أحدث فرص الهجرة والسفر واحصل على استشاراتنا الموثوقة فوراً. حمل التطبيق الآن مجاناً!</p>
     
-    <button id="installBtn" class="btn install-btn">⬇️ تثبيت التطبيق</button>
-    
-    <div id="installHint"></div>
+    <button id="installPwaBtn" class="btn install-pwa-btn">⬆️ تثبيت التطبيق</button>
 
     <a href="https://boslagate.com" class="link-alt">تصفح الموقع بدلاً من ذلك</a>
   </div>
 
-  <div id="offlineScreen" class="box">
-    <h2>أنت غير متصل بالإنترنت 🌐</h2>
-    <p>يبدو أن اتصالك بالإنترنت مقطوع حالياً، لكننا مستعدون لاستقبال استفساراتك حول الهجرة والسفر في أي وقت.</p>
-    <a href="https://wa.me/201221640440" class="btn whatsapp-btn">💬 تواصل عبر الواتساب</a>
-    <a href="tel:01221640440" class="btn install-btn">📞 اتصل بنا الآن</a>
+  <div id="iosDialog">
+    <img src="icon-192.png" width="40" style="border-radius: 8px; margin-bottom: 5px; background-color: #ffffff;"> <br>
+    <b>للآيفون:</b> اضغط على زر المشاركة (Share) ⇪، ثم اختر <br> <b>إضافة للشاشة الرئيسية</b> <br> (Add to Home Screen).
   </div>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
     if (isStandalone) {
-      if (navigator.onLine) {
-        window.location.replace("https://boslagate.com");
-      } else {
-        document.getElementById('offlineScreen').style.display = "block";
-      }
+      if (navigator.onLine) { window.location.replace("https://boslagate.com"); }
     } else {
-      document.getElementById('installScreen').style.display = "block";
-      
       let deferredPrompt;
-      const installBtn = document.getElementById('installBtn');
-      const installHint = document.getElementById('installHint');
+      const installPwaBtn = document.getElementById('installPwaBtn');
+      const iosDialog = document.getElementById('iosDialog');
       
-      // اكتشاف أجهزة أبل (الآيفون والآيباد)
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
       window.addEventListener('beforeinstallprompt', (e) => {
@@ -124,19 +65,15 @@
         deferredPrompt = e;
       });
 
-      installBtn.addEventListener('click', () => {
+      installPwaBtn.addEventListener('click', () => {
         if (deferredPrompt) {
-          // لو موبايل أندرويد عادي ومش تصفح خفي
           deferredPrompt.prompt();
           deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
         } else if (isIOS) {
-          // لو الموبايل آيفون
-          installHint.style.display = 'block';
-          installHint.innerHTML = '<b>للآيفون:</b> اضغط على زر المشاركة (Share) ⇪ أسفل الشاشة، ثم اختر <br> <b>إضافة للشاشة الرئيسية</b> <br> (Add to Home Screen).';
+          iosDialog.style.display = 'block';
+          setTimeout(() => { iosDialog.style.display = 'none'; }, 6000);
         } else {
-          // لو أندرويد بس فاتح تصفح خفي أو متصفح لا يدعم
-          installHint.style.display = 'block';
-          installHint.innerHTML = 'اضغط على <b>الثلاث نقاط (⋮)</b> أعلى المتصفح، ثم اختر <br> <b>تثبيت التطبيق</b> <br> (Install app).';
+          alert('اضغط على الثلاث نقاط (⋮) أعلى المتصفح، ثم اختر "إضافة إلى الشاشة الرئيسية" أو "تثبيت التطبيق".');
         }
       });
     }
