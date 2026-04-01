@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bosla-v4';
+const CACHE_NAME = 'bosla-v5-grok';
 const urlsToCache = [
   './',
   './index.html',
@@ -9,9 +9,10 @@ const urlsToCache = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
   );
-  self.skipWaiting(); 
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
@@ -20,6 +21,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
