@@ -1,10 +1,12 @@
 {
   "name": "Bosla Gate - بوابة بوصلة",
   "short_name": "Bosla Gate",
-  "start_url": "index.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#001f4d",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
