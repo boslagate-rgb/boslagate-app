@@ -1,20 +1,12 @@
-const CACHE_NAME = 'bosla-offline-v2';
-const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icon-192.png',
-  './icon-512.png'
-];
-
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
-  );
+  self.skipWaiting(); // تثبيت فوري إجباري
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(clients.claim()); // تفعيل فوري
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
-  );
+  // تلبية شروط جوجل كروم بدون تعقيد
+  event.respondWith(fetch(event.request).catch(() => new Response('Offline')));
 });
