@@ -4,8 +4,8 @@
   "description": "دليلك الشامل لخدمات الهجرة والسفر",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#001f4d", 
-  "theme_color": "#001f4d",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "icon-192.png",
