@@ -29,13 +29,19 @@
     <div id="instructionBox"></div>
     <a href="https://boslagate.com" class="link-alt">تصفح الموقع بدلاً من ذلك</a>
   </div>
+  
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('✅ SW Registered'))
+        .catch(err => console.log('❌ SW Error:', err));
     }
+    
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     if (isStandalone) {
-      if (navigator.onLine) window.location.href = "https://boslagate.com";
+      if (navigator.onLine) {
+        window.location.href = "https://boslagate.com";
+      }
     } else {
       let deferredPrompt = null;
       const installBtn = document.getElementById('installBtn');
@@ -43,6 +49,7 @@
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
       window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('✅ beforeinstallprompt FIRED!');
         e.preventDefault();
         deferredPrompt = e;
       });
@@ -53,11 +60,11 @@
           deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
         } else if (isIOS) {
           installBtn.innerText = "طريقة التثبيت للآيفون 🍏";
-          instructionBox.innerHTML = "اضغط على زر <b>المشاركة (Share) ⇪</b> أسفل الشاشة<br>ثم اختر <b>إضافة للشاشة الرئيسية</b>";
+          instructionBox.innerHTML = "اضغط على زر <b>المشاركة ⇪</b> أسفل الشاشة<br>ثم <b>إضافة للشاشة الرئيسية</b>";
           instructionBox.style.display = 'block';
         } else {
-          installBtn.innerText = "طريقة التثبيت لمتصفحك 🛡️";
-          instructionBox.innerHTML = "اضغط على <b>الثلاث نقاط ⋮</b> أعلى المتصفح<br>ثم اختر <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>";
+          installBtn.innerText = "طريقة التثبيت 🛡️";
+          instructionBox.innerHTML = "اضغط على <b>الثلاث نقاط ⋮</b> أعلى يمين<br>ثم اختر <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>";
           instructionBox.style.display = 'block';
         }
       });
