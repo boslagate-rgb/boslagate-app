@@ -1,79 +1,20 @@
 {
-  "background_color": "#ffffff",
-  "description": "تعرف على أحدث برامج الهجرة والعمل والدراسة بالخارج عبر بوابة بوصلة. نقدم لك معلومات دقيقة حول تأشيرات السفر، شروط الإقامة، وفرص الاستثمار الدولية في مكان واحد.",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "بوابة بوصلة للهجرة و السفر للخارج",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "بوابة بوصلة للهجرة و السفر للخارج",
-  "start_url": "/",
-  "theme_color": "#ffffff",
-  "icons": [
-    {
-      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=16,h=16,fit=crop,f=png/WbwycMQh4nK0mss8/bosla-gate-favicon-BLhgsuX2yA6R3GLO.png",
-      "type": "image/png",
-      "sizes": "16x16",
-      "isSquare": true,
-      "isPng": true,
-      "isWebp": false,
-      "isJpg": false,
-      "width": 16,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": false
-    },
-    {
-      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/WbwycMQh4nK0mss8/bosla-gate-favicon-BLhgsuX2yA6R3GLO.png",
-      "type": "image/png",
-      "sizes": "32x32",
-      "isSquare": true,
-      "isPng": true,
-      "isWebp": false,
-      "isJpg": false,
-      "width": 32,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": false
-    },
-    {
-      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/WbwycMQh4nK0mss8/bosla-gate-favicon-BLhgsuX2yA6R3GLO.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "isSquare": true,
-      "isPng": true,
-      "isWebp": false,
-      "isJpg": false,
-      "width": 192,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": true
-    },
-    {
-      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=180,h=180,fit=crop,f=png/WbwycMQh4nK0mss8/bosla-gate-favicon-BLhgsuX2yA6R3GLO.png",
-      "type": "image/png",
-      "sizes": "180x180",
-      "isSquare": true,
-      "isPng": true,
-      "isWebp": false,
-      "isJpg": false,
-      "width": 180,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": false
-    },
-    {
-      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/WbwycMQh4nK0mss8/boslagate-sKpKaNEE7yNtkt0Y.png",
-      "type": "image/jpeg",
-      "sizes": "1260x630",
-      "isSquare": false,
-      "isPng": true,
-      "isWebp": false,
-      "isJpg": true,
-      "width": 1260,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": false
-    }
-  ]
+ "name": "Bosla Gate",
+ "short_name": "Bosla Gate",
+ "start_url": "https://boslagate.com",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#0056b3",
+ "icons": [
+  {
+   "src": "/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
 }
