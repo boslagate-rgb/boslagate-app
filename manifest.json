@@ -1,8 +1,9 @@
 {
+  "id": "/",
   "name": "Bosla Gate - بوابة بوصلة",
   "short_name": "Bosla Gate",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#001f4d",
