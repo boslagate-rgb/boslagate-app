@@ -1,8 +1,9 @@
-const CACHE_NAME = 'bosla-v8-grok-final-netlify';   // <-- جديد عشان يتحدث
+const CACHE_NAME = 'bosla-v9-final-online-preferred';
 
 const urlsToCache = [
   '/',
   '/index.html',
+  '/offline.html',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png'
@@ -20,9 +21,10 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
 
+// Network First + Offline Fallback
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    fetch(event.request)
+      .catch(() => caches.match('/offline.html'))
   );
 });
