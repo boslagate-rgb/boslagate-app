@@ -27,6 +27,13 @@
             max-width: 400px;
             width: 90%;
         }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
         h1 { color: #001f4d; margin-bottom: 5px; }
         p { color: #555; margin-bottom: 25px; }
         
@@ -38,11 +45,12 @@
             font-size: 18px;
             border-radius: 5px;
             cursor: pointer;
-            display: none; /* مخفي افتراضياً حتى يوافق المتصفح */
+            display: block; /* الزرار بقى ظاهر دايماً */
             margin: 0 auto;
+            width: 100%;
         }
         .ios-instructions {
-            display: none; /* مخفي افتراضياً */
+            display: none;
             margin-top: 20px;
             padding: 15px;
             background-color: #e9ecef;
@@ -55,6 +63,8 @@
 </head>
 <body>
     <div class="container">
+        <img src="./icon-192.png" alt="لوجو بوابة بوصلة" class="logo">
+        
         <h1>بوابة بوصلة</h1>
         <p>التطبيق الرسمي لخدمات الهجرة</p>
         
@@ -66,7 +76,7 @@
     </div>
 
     <script>
-        // 1. تسجيل السيرفيس وركر
+        // تسجيل السيرفيس وركر
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -75,38 +85,42 @@
             });
         }
 
-        // 2. منطق إظهار زر التثبيت (جوجل كروم / أندرويد)
         let deferredPrompt;
         const installBtn = document.getElementById('installBtn');
         const iosInstructions = document.getElementById('iosInstructions');
 
+        // التقاط الإشارة من كروم لو ظهرت
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installBtn.style.display = 'block'; // المتصفح سمح، نظهر الزر
         });
 
+        // لما العميل يدوس على الزرار
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
+                // لو كروم سامح بالتثبيت التلقائي
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
-                    installBtn.style.display = 'none';
+                    installBtn.style.display = 'none'; // نخفي الزرار بعد التثبيت
                 }
                 deferredPrompt = null;
+            } else {
+                // لو كروم معاند أو التطبيق متثبت بالفعل، نطلع له رسالة مساعدة
+                alert("لتثبيت التطبيق: \n\nاضغط على الثلاث نقاط (⋮) أعلى المتصفح، ثم اختر \n'إضافة إلى الشاشة الرئيسية' أو 'Install App'.");
             }
         });
 
-        // 3. كشف الآيفون لإظهار الشرح المخصص
+        // كشف الآيفون
         const isIos = () => {
             const userAgent = window.navigator.userAgent.toLowerCase();
             return /iphone|ipad|ipod/.test(userAgent);
         };
         const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-        // لو الجهاز آيفون والتطبيق مش متثبت، أظهر الشرح
         if (isIos() && !isInStandaloneMode()) {
             iosInstructions.style.display = 'block';
+            installBtn.style.display = 'none'; // نخفي زرار الأندرويد من الآيفون
         }
     </script>
 </body>
