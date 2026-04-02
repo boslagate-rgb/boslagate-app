@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bosla-v6-grok-final';   // <-- غيرناها عشان نجبر البراوزر يحدث
+const CACHE_NAME = 'bosla-v7-grok-final-redirects';   // <-- غيرناها
 
 const urlsToCache = [
   '/',
