@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bosla-v7-grok-final-redirects';   // <-- غيرناها
+const CACHE_NAME = 'bosla-v8-grok-final-netlify';   // <-- جديد عشان يتحدث
 
 const urlsToCache = [
   '/',
