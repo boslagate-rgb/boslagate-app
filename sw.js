@@ -1,4 +1,5 @@
-const CACHE_NAME = 'bosla-v5-grok';
+const CACHE_NAME = 'bosla-v6-grok-final';   // <-- غيرناها عشان نجبر البراوزر يحدث
+
 const urlsToCache = [
   '/',
   '/index.html',
