@@ -28,36 +28,35 @@
     <button id="installBtn" class="btn">⬇️ تثبيت التطبيق</button>
     <div id="instructionBox"></div>
     <a href="https://boslagate.com" class="link-alt">تصفح الموقع بدلاً من ذلك</a>
-  </div>
-  
+  </div>  
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('✅ SW Registered Successfully'))
-      .catch(err => console.error('❌ SW Registration Failed:', err));
+      .then(() => console.log('✅ SW Registered Successfully on bosla-app'))
+      .catch(err => console.error('❌ SW Failed:', err));
   }
  
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   if (isStandalone) {
-    if (navigator.onLine) {
-      window.location.href = "https://boslagate.com";
-    }
+    if (navigator.onLine) window.location.href = "https://boslagate.com";
   } else {
     let deferredPrompt = null;
     const installBtn = document.getElementById('installBtn');
     const instructionBox = document.getElementById('instructionBox');
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
     window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('✅ beforeinstallprompt FIRED!');
+      console.log('✅ beforeinstallprompt FIRED! Ready to install');
       e.preventDefault();
       deferredPrompt = e;
     });
+    
     installBtn.addEventListener('click', () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choice) => { 
+        deferredPrompt.userChoice.then((choice) => {
           console.log('User choice:', choice.outcome);
-          deferredPrompt = null; 
+          deferredPrompt = null;
         });
       } else if (isIOS) {
         installBtn.innerText = "طريقة التثبيت للآيفون 🍏";
@@ -65,7 +64,7 @@
         instructionBox.style.display = 'block';
       } else {
         installBtn.innerText = "طريقة التثبيت 🛡️";
-        instructionBox.innerHTML = "اضغط على <b>الثلاث نقاط ⋮</b> أعلى يمين<br>ثم اختر <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>";
+        instructionBox.innerHTML = "اضغط على <b>الثلاث نقاط ⋮</b> أعلى يمين<br>ثم اختر <b>تثبيت التطبيق</b>";
         instructionBox.style.display = 'block';
       }
     });
