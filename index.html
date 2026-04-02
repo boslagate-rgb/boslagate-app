@@ -1,127 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق بوابة بوصلة</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#001f4d">
-    <link rel="apple-touch-icon" href="./icon-192.png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 90%;
-        }
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        h1 { color: #001f4d; margin-bottom: 5px; }
-        p { color: #555; margin-bottom: 25px; }
-        
-        .install-btn {
-            background-color: #001f4d;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block; /* الزرار بقى ظاهر دايماً */
-            margin: 0 auto;
-            width: 100%;
-        }
-        .ios-instructions {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9ecef;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #333;
-            line-height: 1.5;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>تحميل تطبيق بوابة بوصلة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    body { font-family: 'Cairo', sans-serif; text-align: center; background-color: #f4f7f6; margin: 0; padding: 30px 15px; }
+    .box { background: #fff; padding: 35px 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 380px; margin: auto; }
+    .logo-img { width: 110px; margin-bottom: 15px; }
+    h2 { color: #001f4d; font-weight: 700; margin-bottom: 8px; font-size: 24px;}
+    p { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 25px;}
+    .btn { display: block; margin: 12px auto; padding: 14px; color: white; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 17px; width: 90%; box-sizing: border-box; border: none; cursor: pointer; font-family: 'Cairo', sans-serif; background: #001f4d; }
+    .link-alt { display: block; margin-top: 20px; color: #777; text-decoration: underline; font-size: 15px;}
+    #instructionBox { background: #e9f2fc; color: #001f4d; padding: 15px; border-radius: 8px; font-size: 15px; margin-top: 15px; border: 1px solid #cce0f5; display: none; line-height: 1.6;}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="./icon-192.png" alt="لوجو بوابة بوصلة" class="logo">
-        
-        <h1>بوابة بوصلة</h1>
-        <p>التطبيق الرسمي لخدمات الهجرة</p>
-        
-        <button id="installBtn" class="install-btn">تثبيت التطبيق ⬇️</button>
-        
-        <div id="iosInstructions" class="ios-instructions">
-            لتثبيت التطبيق على الآيفون: <br> اضغط على زر <strong>المشاركة</strong> بالأسفل ثم اختر <br> <strong>إضافة للشاشة الرئيسية (Add to Home Screen)</strong> 🍏
-        </div>
-    </div>
+  <div class="box">
+    <img src="icon-192.png" class="logo-img" alt="لوجو بوابة بوصلة">
+    <h2>تطبيق بوابة بوصلة</h2>
+    <p>للحصول على أسرع تجربة ومتابعة أحدث فرص الهجرة، حمل التطبيق الآن مجاناً.</p>
+    <button id="installBtn" class="btn">⬇️ تثبيت التطبيق</button>
+    <div id="instructionBox"></div>
+    <a href="https://boslagate.com" class="link-alt">تصفح الموقع بدلاً من ذلك</a>
+  </div>
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('✅ SW Registered'))
+        .catch(err => console.log('❌ SW Error:', err));
+    }
+    
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (isStandalone) {
+      if (navigator.onLine) {
+        window.location.href = "https://boslagate.com";
+      }
+    } else {
+      let deferredPrompt = null;
+      const installBtn = document.getElementById('installBtn');
+      const instructionBox = document.getElementById('instructionBox');
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-    <script>
-        // تسجيل السيرفيس وركر
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('✅ Service Worker Registered'))
-                    .catch(err => console.log('❌ SW Error', err));
-            });
+      window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('✅ beforeinstallprompt FIRED!');
+        e.preventDefault();
+        deferredPrompt = e;
+      });
+
+      installBtn.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+        } else if (isIOS) {
+          installBtn.innerText = "طريقة التثبيت للآيفون 🍏";
+          instructionBox.innerHTML = "اضغط على زر <b>المشاركة ⇪</b> أسفل الشاشة<br>ثم <b>إضافة للشاشة الرئيسية</b>";
+          instructionBox.style.display = 'block';
+        } else {
+          installBtn.innerText = "طريقة التثبيت 🛡️";
+          instructionBox.innerHTML = "اضغط على <b>الثلاث نقاط ⋮</b> أعلى يمين<br>ثم اختر <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>";
+          instructionBox.style.display = 'block';
         }
-
-        let deferredPrompt;
-        const installBtn = document.getElementById('installBtn');
-        const iosInstructions = document.getElementById('iosInstructions');
-
-        // التقاط الإشارة من كروم لو ظهرت
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        // لما العميل يدوس على الزرار
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                // لو كروم سامح بالتثبيت التلقائي
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    installBtn.style.display = 'none'; // نخفي الزرار بعد التثبيت
-                }
-                deferredPrompt = null;
-            } else {
-                // لو كروم معاند أو التطبيق متثبت بالفعل، نطلع له رسالة مساعدة
-                alert("لتثبيت التطبيق: \n\nاضغط على الثلاث نقاط (⋮) أعلى المتصفح، ثم اختر \n'إضافة إلى الشاشة الرئيسية' أو 'Install App'.");
-            }
-        });
-
-        // كشف الآيفون
-        const isIos = () => {
-            const userAgent = window.navigator.userAgent.toLowerCase();
-            return /iphone|ipad|ipod/.test(userAgent);
-        };
-        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-
-        if (isIos() && !isInStandaloneMode()) {
-            iosInstructions.style.display = 'block';
-            installBtn.style.display = 'none'; // نخفي زرار الأندرويد من الآيفون
-        }
-    </script>
+      });
+    }
+  </script>
 </body>
 </html>
